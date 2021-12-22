@@ -8,6 +8,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import com.Pom.Page_Object_Manager;
+import com.helper.Reader_Manager;
 public class Runner_Class extends Base_Class {
 		    public static WebDriver driver = getBrowser("chrome");
 		    public static Page_Object_Manager pom = new Page_Object_Manager(driver);
@@ -15,12 +16,12 @@ public class Runner_Class extends Base_Class {
 		    public static void main(String args[]) throws Throwable{
 		    PropertyConfigurator.configure("log4j.properties");
         	log.info("Browser launch");
-		   	url("http://automationpractice.com/index.php");
-		   	log.info("Url launch successfully");
+        	String url = Reader_Manager.getInstanceRM().getInstanceCR().geturl();
+		   	url(url);
 			clickOnWebElement(pom.getInstanceHp().getSign_in());
-			String email = Read_particular_Data("C:\\Users\\faayeza\\eclipse-workspace\\Maven.Archetype.quickstart\\Test cases.xlsx" ,2,5);
-			inputValueElement(pom.getInstanceLp().getEmail(),email);
-			String password = Read_particular_Data("C:\\Users\\faayeza\\eclipse-workspace\\Maven.Archetype.quickstart\\Test cases.xlsx" , 7,5);
+			String username = Reader_Manager.getInstanceRM().getInstanceCR().getusername();
+			inputValueElement(pom.getInstanceLp().getEmail(),username);
+			String password = Reader_Manager.getInstanceRM().getInstanceCR().getpassword();
 			inputValueElement(pom.getInstanceLp().getPassword(),password);
 			clickOnWebElement(pom.getInstanceLp().getSign_btn());
 			log.info("sign in sucessfully");
@@ -48,11 +49,12 @@ public class Runner_Class extends Base_Class {
 	        Thread.sleep(3000);
 	        TakesScreenshot ts = (TakesScreenshot) driver;
 	        File source = ts.getScreenshotAs(OutputType.FILE);
-	        File destination = new File("C:\\Users\\faayeza\\eclipse-workspace\\Selenium_Testing\\screenshots//pic7.png");
+	        File destination = new File("C:\\Users\\faayeza\\eclipse-workspace\\Selenium_Testing\\screenshots//pic8.png");
 	        FileUtils.copyFile(source, destination);
         	log.info("screenshot captured");
-		}
-		}
+		}						
+			}
+		
 
 
 
